@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "26b5058c-aa87-4961-84a5-5bc6547a541c",
+		"name": "Raft",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"num = pm.environment.get(\"number\")",
+							"if (num === null || num === \"\") {",
+							"    num = 0",
+							"}",
+							"",
+							"num++",
+							"pm.environment.set(\"number\", num)",
+							"",
+							"leader = pm.environment.get(\"leader\")",
+							"if (!leader) {",
+							"    pm.environment.set(\"leader\", \"localhost:9000\")",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"leader\", jsonData.leader)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": "me",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"entry\": \"Message {{number}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{leader}}/request",
+					"host": [
+						"{{leader}}"
+					],
+					"path": [
+						"request"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
