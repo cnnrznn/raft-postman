@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "25dfee5e-cc4a-47f1-9ccb-4df092c6c32e",
+		"name": "Fake ETCD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Set email",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"leader = pm.environment.get(\"leader\")",
+							"if (!leader) {",
+							"    pm.environment.set(\"leader\", \"localhost:9000\")",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"leader\", jsonData.leader)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Host",
+						"value": "me",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\": \"email\",\n    \"value\": \"czanin@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{leader}}",
+					"host": [
+						"{{leader}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"leader = pm.environment.get(\"leader\")",
+							"if (!leader) {",
+							"    pm.environment.set(\"leader\", \"localhost:9000\")",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"leader\", jsonData.leader)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"host": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Host",
+						"value": "me",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\": \"name\",\n    \"value\": \"Connor Zanin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{leader}}",
+					"host": [
+						"{{leader}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get email",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"leader = pm.environment.get(\"leader\")",
+							"if (!leader) {",
+							"    pm.environment.set(\"leader\", \"localhost:9000\")",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"leader\", jsonData.leader)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{leader}}?key=name",
+					"host": [
+						"{{leader}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "name"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"leader = pm.environment.get(\"leader\")",
+							"if (!leader) {",
+							"    pm.environment.set(\"leader\", \"localhost:9000\")",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"leader\", jsonData.leader)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{leader}}?key=name",
+					"host": [
+						"{{leader}}"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "name"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
